@@ -1,22 +1,60 @@
 ﻿@using Microsoft.AspNet.Identity
+@using blog.Models
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    using (Html.BeginForm("Logoff", "Account", FormMethod.Post, new { id = "logoff" }))
     {
-    @Html.AntiForgeryToken()
+        var db = new ApplicationDbContext();
+        var UserID = User.Identity.GetUserId();
+        var currentUser = db.Users.Where(x => x.Id == UserID).SingleOrDefault();
+        @Html.AntiForgeryToken()
+        <ul class="navbar-nav mb-2 mb-lg-0">
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Welcome @currentUser.UserName
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                    @* @if (currentUser.UserType.Contains("Hiring"))
+                        {
+                            <li><a class="dropdown-item" href="/jobs/create"><i class="bi bi-plus-circle"></i> New Posts</a></li>
+                            <li><a class="dropdown-item" href="/home/getjobsbypublisher"><i class="bi bi-file-earmark-post"></i> Your Posts</a></li>
+                        }
+                        else
+                        {
+                            <li><a class="dropdown-item" href="/home/getjobsbyuser"><i class="bi bi-check"></i> Applied Jobs</a></li>
+                        }*@
+
+                    <li><a class="dropdown-item" href="/account/editprofile"><i class="bi bi-gear"></i> Settings</a></li>
+
+                </ul>
+            </li>
+
+            @*  <li class="nav-item">
+                    @Html.ActionLink("Welcome " + User.Identity.GetUserName(), "Index", new { Controller = "Manage" }, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="submt()" href="#">Logout</a>
+                </li>*@
+        </ul>
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item">
+            <a class="nav-link active" href="/account/login">Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/account/register">Register</a>
+        </li>
     </ul>
+
 }
+
+<script>
+    const submt = () => {
+        let form = document.getElementById("logoff");
+        form.submit();
+    }
+</script>
