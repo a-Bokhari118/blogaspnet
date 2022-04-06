@@ -1,0 +1,51 @@
+﻿@model IEnumerable<blog.Areas.Admin.Data.CategoriesModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+
+<table id="example" class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+</table>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            "ajax": {
+                "url": "/categories/GetAllCategories",
+                "type": "GET",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "Name" },
+                {
+                    "data": "Id", "width": "50px", "render": function (data) {
+                        return '<a class="nav-link" href="/admin/categories/edit/' + data + '"><i class="bi bi-pen"></i></a>';
+                    }
+
+                },
+                {
+                    "data": "Id", "width": "50px", "render": function (data) {
+                        return '<a class="nav-link text-danger" href="/admin/categories/delete/' + data + '"><i class="bi bi-trash"></i></a>';
+                    }
+                }
+            ],
+            'columnDefs': [{
+                'targets': [1, 2],
+                'orderable': false,
+            }]
+        });
+    });
+</script>

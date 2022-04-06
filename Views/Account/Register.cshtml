@@ -12,6 +12,7 @@
                 </div>
                 @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
                 {
+                    @Html.AntiForgeryToken()
                     <div class="card-body">
                         <div class="form-group">
                             @Html.LabelFor(model => model.Username)
@@ -23,17 +24,21 @@
                             @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
                         </div>
                         <div class="form-group">
+                            @Html.LabelFor(model => model.AccountType, new { @class = "col-md-2 control-label" })
+                            @Html.DropDownList("AccountType", null, new { @class = "form-select" })
+                        </div>
+                        <div class="form-group">
                             @Html.LabelFor(model => model.Password)
-                            @Html.TextBoxFor(model => model.Password, new { @class = "form-control" })
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.ConfirmPassword)
-                            @Html.TextBoxFor(model => model.ConfirmPassword, new { @class = "form-control" })
+                            @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control" })
                         </div>
 
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-default">Submit</button>
                     </div>
                 }
             </div>

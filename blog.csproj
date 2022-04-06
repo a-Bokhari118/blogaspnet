@@ -170,6 +170,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
+    <Compile Include="Areas\Admin\Data\CategoriesModel.cs" />
+    <Compile Include="Areas\Admin\Data\RoleViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -179,6 +183,14 @@
     <Compile Include="Migrations\202204040600087_setup.cs" />
     <Compile Include="Migrations\202204040600087_setup.designer.cs">
       <DependentUpon>202204040600087_setup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204040738198_col.cs" />
+    <Compile Include="Migrations\202204040738198_col.designer.cs">
+      <DependentUpon>202204040738198_col.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204050634578_addcategorycol2.cs" />
+    <Compile Include="Migrations\202204050634578_addcategorycol2.designer.cs">
+      <DependentUpon>202204050634578_addcategorycol2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -2406,6 +2418,15 @@
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\notfoundpage.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\adminsec.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Edit.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
@@ -2456,7 +2477,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Data\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -2464,6 +2484,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202204040600087_setup.resx">
       <DependentUpon>202204040600087_setup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204040738198_col.resx">
+      <DependentUpon>202204040738198_col.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204050634578_addcategorycol2.resx">
+      <DependentUpon>202204050634578_addcategorycol2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

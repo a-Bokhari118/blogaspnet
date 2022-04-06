@@ -13,6 +13,7 @@ namespace blog
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            CreateDefaultRolesAndUsers();
         }
 
 
@@ -30,6 +31,7 @@ namespace blog
                 ApplicationUser user = new ApplicationUser();
                 user.UserName = "admin";
                 user.Email = "admin@test.com";
+                user.AccountType = "Admins";
                 var check = userManager.Create(user, "Pa$$w0rd");
                 if (check.Succeeded)
                 {

@@ -17,9 +17,11 @@ namespace blog.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db;
 
         public AccountController()
         {
+            db = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -139,6 +141,7 @@ namespace blog.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.AccountType = new SelectList(db.Roles.ToList(), "Name", "Name");
             return View();
         }
 
@@ -151,7 +154,8 @@ namespace blog.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
+                ViewBag.AccountType = new SelectList(db.Roles.ToList(), "Name", "Name");
+                var user = new ApplicationUser { UserName = model.Username, Email = model.Email, AccountType = model.AccountType };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -162,7 +166,7 @@ namespace blog.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
+                    await UserManager.AddToRoleAsync(user.Id, model.AccountType);
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
