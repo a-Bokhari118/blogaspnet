@@ -38,7 +38,7 @@
                 },
                 {
                     "data": "Id", "width": "50px", "render": function (data) {
-                        return '<a class="nav-link text-danger" href="/admin/categories/delete/' + data + '"><i class="bi bi-trash"></i></a>';
+                        return '<a class="nav-link text-danger" onclick="dele(' + data + ')"><i class="bi bi-trash"></i></a>';
                     }
                 }
             ],
@@ -48,4 +48,16 @@
             }]
         });
     });
+
+
+
+    const dele = (id) => {
+        confirm("Are You Sure?") == true ? $.ajax({
+            type: 'POST',
+            url: "/admin/categories/delete/" + id,
+            success: () => {
+                window.location.href = "/admin/categories/index"
+            }
+        }) : ""
+    }
 </script>

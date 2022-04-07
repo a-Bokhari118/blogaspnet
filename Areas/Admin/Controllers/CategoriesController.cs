@@ -65,5 +65,19 @@ namespace blog.Areas.Admin.Controllers
             }
             return View(model);
         }
+
+
+
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            var model = db.CategoriesModels.Where(x => x.Id == id).SingleOrDefault();
+
+            db.CategoriesModels.Remove(model);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
+
+        }
     }
 }

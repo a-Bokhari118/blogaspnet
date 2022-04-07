@@ -72,49 +72,63 @@ namespace blog.Areas.Admin.Controllers
         }
 
         // GET: Roles/Delete/5
-        public ActionResult Delete(string id)
-        {
-            var role = db.Roles.Find(id);
-            if (role == null)
-            {
-                return PartialView("~Area/Admin/Views/Shared/notfounpage.cshtml");
-            }
-            return View(role);
+        /*  public ActionResult Delete(string id)
+          {
+              var role = db.Roles.Find(id);
+              if (role == null)
+              {
+                  return PartialView("~Area/Admin/Views/Shared/notfounpage.cshtml");
+              }
+              return View(role);
 
-        }
+          }*/
 
         // POST: Roles/Delete/5
-        [HttpPost]
-        public ActionResult Delete(IdentityRole role)
-        {
-            try
-            {
-                var myrole = db.Roles.Find(role.Id);
-                db.Roles.Remove(myrole);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View(role);
-            }
-        }
+        /*  [HttpPost]
+          public ActionResult Delete(IdentityRole role)
+          {
+              try
+              {
+                  var myrole = db.Roles.Find(role.Id);
+                  db.Roles.Remove(myrole);
+                  db.SaveChanges();
+                  return RedirectToAction("Index");
+              }
+              catch
+              {
+                  return View(role);
+              }
+          }*/
+
 
         [HttpPost]
-        public ActionResult DeleteJson(IdentityRole role)
+        public ActionResult Delete(string id)
         {
+            var newid = id.ToString();
+            var model = db.Roles.Where(x => x.Id == newid).SingleOrDefault();
 
-            try
-            {
-                var myrole = db.Roles.Find(role.Id);
-                db.Roles.Remove(myrole);
-                db.SaveChanges();
-                return Json(new { data = "ok" }, JsonRequestBehavior.AllowGet);
-            }
-            catch
-            {
-                return Json(new { data = "No" }, JsonRequestBehavior.AllowGet);
-            }
+            db.Roles.Remove(model);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
+
         }
+        /*
+                [HttpPost]
+                public ActionResult DeleteJson(string id)
+                {
+
+                    try
+                    {
+                        var myrole = db.Roles.Where(x => x.Id == id).FirstOrDefault();
+                        db.Roles.Remove(myrole);
+                        db.SaveChanges();
+                        return Json(new { data = "ok" }, JsonRequestBehavior.AllowGet);
+                    }
+                    catch
+                    {
+                        return Json(new { data = "No" }, JsonRequestBehavior.AllowGet);
+                    }
+                }*/
     }
 }
