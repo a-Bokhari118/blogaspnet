@@ -21,7 +21,7 @@ namespace blog.Areas.Admin.Controllers
 
         public ActionResult GetAllCategories()
         {
-            var categories = db.CategoriesModels.ToList<CategoriesModel>();
+            var categories = db.CategoriesModels.ToList();
             return Json(new { data = categories }, JsonRequestBehavior.AllowGet);
         }
 

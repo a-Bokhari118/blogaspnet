@@ -1,4 +1,5 @@
-﻿using System;
+﻿using blog.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +9,11 @@ namespace blog.Controllers
 {
     public class HomeController : Controller
     {
+        ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            return View();
+            IEnumerable<Posts> posts = db.Posts.Where(x => x.isDeleted == false).OrderByDescending(x => x.CreatedAt).Take(6);
+            return View(posts);
         }
 
         public ActionResult About()

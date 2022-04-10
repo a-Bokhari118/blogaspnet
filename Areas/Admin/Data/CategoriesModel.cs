@@ -1,4 +1,5 @@
-﻿using System;
+﻿using blog.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,5 +13,7 @@ namespace blog.Areas.Admin.Data
         [Required]
         [Display(Name = "Category Name")]
         public string Name { get; set; }
+
+        public virtual ICollection<Posts> Posts { get; set; }
     }
 }
