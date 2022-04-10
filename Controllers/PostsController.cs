@@ -19,6 +19,8 @@ namespace blog.Controllers
             return View(posts);
         }
 
+
+
         public ActionResult Details(int id)
         {
             Posts post = db.Posts.Find(id);
