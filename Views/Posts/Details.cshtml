@@ -7,25 +7,27 @@
 
 
 <div class="container">
+    <h3 class="mt-3">
+        <a style="text-decoration: none" href=@Request.UrlReferrer><i class="bi bi-arrow-bar-left"></i> Back</a>
+    </h3>
 
     <div class="w-100 mt-3">
         <img class="w-100 h-25" src="~/Uploads/@Model.BlogImage" alt="Alternate Text" />
     </div>
-
+    <hr />
     <div class="d-flex mt-4 justify-content-between align-items-center">
-        <span>@Model.User.UserName</span>
-        <span>@Model.CreatedAt</span>
+        <span><span class="text-secondary">Written By: </span>@Model.User.UserName</span>
+        <span><span class="text-secondary">Tag </span>@Model.Category.Name</span>
+        <span><span class="text-secondary">Published At: </span>@Model.CreatedAt</span>
 
     </div>
     <hr />
     <div class="mt-5">
         <h3 class="text-center">@Model.Title</h3>
-        @Html.Raw(HttpUtility.HtmlDecode(Model.Content.ToString()))
+        <div class="w-100" style="overflow-x:clip">
+            @Html.Raw(HttpUtility.HtmlDecode(Model.Content.ToString()))
+        </div>
+
     </div>
 
-
-    <p>
-        <a href=@Request.UrlReferrer>Back</a>
-    </p>
 </div>
-

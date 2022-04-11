@@ -15,17 +15,24 @@
                     Welcome @currentUser.UserName
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                    @if (currentUser.AccountType.Contains("Admins"))
+                    @if (User.IsInRole("Admins"))
                     {
                         <li><a class="dropdown-item" href="/admin/admin"><i class="bi bi-bar-chart"></i> Admin Dashboard</a></li>
-
+                        <li><a class="dropdown-item" href="/posts/getpostsbyuser"><i class="bi bi-check"></i>Your Posts</a></li>
                     }
                     else
                     {
-                        <li><a class="dropdown-item" href="/home/getjobsbyuser"><i class="bi bi-check"></i> Applied Jobs</a></li>
+                        <li><a class="dropdown-item" href="/posts/create"><i class="bi bi-plus"></i>New Post</a></li>
+                        <li><a class="dropdown-item" href="/posts/getpostsbyuser"><i class="bi bi-check"></i>Your Posts</a></li>
                     }
 
                     <li><a class="dropdown-item" href="/account/editprofile"><i class="bi bi-gear"></i> Settings</a></li>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li class="dropdown-item">
+                            <a class="nav-item" onclick="submt()" href="#"><i class="bi bi-box-arrow-left"></i> Logout</a>
+                        </li>
+                    }
 
                 </ul>
             </li>
