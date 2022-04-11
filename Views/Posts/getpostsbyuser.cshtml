@@ -1,5 +1,7 @@
 ﻿@using Microsoft.AspNet.Identity
-@model IEnumerable<blog.Models.Posts>
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<blog.Models.Posts>
 
 @{
     ViewBag.Title = "getpostsbyuser";
@@ -42,7 +44,8 @@
 
         }
 
-        <input type="hidden" id="hiddenID" />
+        @Html.PagedListPager(Model, Page => Url.Action("getpostsbyuser", new { Page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
+
     </div>
 </div>
 

@@ -8,23 +8,23 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-
+using PagedList;
 namespace blog.Controllers
 {
     public class PostsController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
         // GET: Posts
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            IEnumerable<Posts> posts = db.Posts.Where(x => x.isDeleted == false).ToList();
+            IEnumerable<Posts> posts = db.Posts.Where(x => x.isDeleted == false).ToList().ToPagedList(page ?? 1, 9);
             return View(posts);
         }
 
-        public ActionResult getpostsbyuser()
+        public ActionResult getpostsbyuser(int? page)
         {
             var userid = User.Identity.GetUserId();
-            IEnumerable<Posts> posts = db.Posts.Where(x => x.isDeleted == false && x.UserId == userid).ToList();
+            IEnumerable<Posts> posts = db.Posts.Where(x => x.isDeleted == false && x.UserId == userid).ToList().ToPagedList(page ?? 1, 9);
             return View(posts);
         }
 

@@ -1,4 +1,6 @@
-﻿@model IEnumerable<blog.Models.Posts>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<blog.Models.Posts>
 
 @{
     ViewBag.Title = "Index";
@@ -27,6 +29,8 @@
 
 
     </div>
+
+    @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
 </div>
 
 
